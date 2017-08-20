@@ -1,5 +1,5 @@
-# web_scraper
-Tool to help me with web scraping. Will have a nice little text UI to help with debugging stuff on the internet.
+# The Scraper!
+The Scraper scrapes. He even has a nice little text UI to help scrape. It's almost as if he likes you. Almost.
 
 ### Note: This is not suitable for use. Still building.
 
