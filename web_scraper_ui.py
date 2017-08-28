@@ -7,11 +7,12 @@ import lxml
 from bs4 import BeautifulSoup
 from mechanize import Browser
 
-sys.path.append(os.path.dirname(__file__) + '/classes')
-from UI import UI
+from classes.UI import UI
 
 class Web_Scraper:
 
+	print os.environ
+	
 	def __init__(self, website):
 		# Website the scraper will be on 
 		self.website = website
@@ -22,6 +23,7 @@ class Web_Scraper:
 		self.request = None
 		self.response = None
 		self.links = None
+		self.UI = UI()
 
 	def showSelfLinks(self):
 		return self.links

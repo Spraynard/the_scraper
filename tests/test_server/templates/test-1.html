@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Test - 1</title>
+</head>
+<body>
+	<h1>This is the doctor test</h1>
+	<div id="doctor-info-wrapper">
+		{% for doctor in doctors %}
+		<div class="doctor">
+			<div class="doctor-name">
+				{{ doctor[0] }}
+			</div>
+			<div class="doctor-dob">
+				{{ doctor[1]}}
+			</div>
+			<div class="doctor-info">
+				{{ doctor[2] }}
+			</div>
+		</div>
+		{% endfor %}
+	</div>
+</body>
+</html>

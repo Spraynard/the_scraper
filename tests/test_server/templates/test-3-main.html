@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Test - 3</title>
+</head>
+<body>
+	{% if not link_number %}
+		Hello you are on the main page
+		<a href="/test-3/1">link-1</a>
+		<a href="/test-3/2">link-2</a>
+		<a href="/test-3/3">link-3</a>
+	{% elif link_number %}
+		This is link_number {{ link_number }}
+		{% if link_number|int % 2 == 0 and not link_number|int == 32 %}
+			<a href="/test-3/{{ link_number|int * 2 }}">link-{{ link_number|int * 2 }}</a>
+		{% endif %}
+	{% endif %}
+</body>
+</html>
