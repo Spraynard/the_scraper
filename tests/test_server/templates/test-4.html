@@ -4,6 +4,17 @@
 	<title>Test - 4</title>
 </head>
 <body>
+	{% with messages = get_flashed_messages() %}
+		{% if messages %}
+			<ul class="flashes">
+			{% for message in messages %}
+				<li class="flash">
+					{{ message }}
+				</li>
+			{% endfor %}
+			</ul>
+		{% endif %}
+	{% endwith %}
 	<form method="POST" name="test-4-auth" action="test-4">
 		<div>Username</div>
 		<input type="text" name="username">

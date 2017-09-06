@@ -1,11 +1,23 @@
-from flask import Flask
-from flask import render_template
+from functools import wraps
+
+from flask import Flask, request, redirect, url_for, session, render_template, flash, abort
 
 import sqlite3
 conn = sqlite3.connect('db/test_server.db')
 
 app = Flask(__name__, static_url_path="/static")
 app.secret_key = '3\xb9\xff\xa9\xef\x14\xe3d\x93\x19\x02]\xa2\xb1\xad\xd4\xbe> \xf5\xc5\xbc\x1a6'
+
+def checkIfUser(f):
+	@wraps(f)
+	def decorated_function(*args, **kwargs):
+		if 'username' in session:
+			return f(*args, **kwargs)
+		else:
+			flash("Login is required to get to that page")
+			return abort(401)
+
+	return decorated_function
 
 @app.route("/")
 def hello():
@@ -48,8 +60,9 @@ def test_3(link_number):
 # Test 4 - Authentication Test. Used to test feeding
 #			the scraper auth values and then seeing
 # 			if it can get past an auth wall.
+#			would like to see if I can get some middleware or something
+#			on here!!
 def test_4():
-	from flask import request, session, redirect, url_for
 	if request.method == 'POST':
 		user_dict = {}
 		c = conn.cursor()
@@ -64,16 +77,12 @@ def test_4():
 	return render_template('test-4.html')
 
 @app.route("/test-4/auth-wall")
-
+@checkIfUser
 def test_4_auth_wall():
-	from flask import session
-	try:
-		print "This is the session:", session['username']
-		return "You made it past the auth wall, congrats mother fux."
-	except:
-		return "You are not authorized to be here dude."
+	return render_template('test_4_success.html')
 
 @app.route("/logout")
+@checkIfUser
 def logout():
 	from flask import session, redirect, url_for
 	session.pop('username', None)
